@@ -204,3 +204,92 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* =============================================================
+   SUGGESTION FORM
+   Posts anonymously to a Google Apps Script web app which
+   saves the entry to a Google Sheet.
+   Replace APPS_SCRIPT_URL with your deployed script URL.
+   ============================================================= */
+
+// ⚠️  Replace this with your Google Apps Script deployment URL
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+(function initSuggestionForm() {
+  const form    = document.getElementById('suggestion-form');
+  const textarea = document.getElementById('suggestion-text');
+  const counter  = document.getElementById('char-count');
+  const status   = document.getElementById('suggestion-status');
+  const submitBtn = document.getElementById('suggestion-submit');
+  const MAX = 2000;
+
+  if (!form) return;
+
+  // Live character counter
+  textarea?.addEventListener('input', () => {
+    const len = textarea.value.length;
+    counter.textContent = `${len} / ${MAX}`;
+    counter.className = 'char-count' +
+      (len >= MAX ? ' at-limit' : len >= MAX * 0.85 ? ' near-limit' : '');
+  });
+
+  // Form submission
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = textarea?.value?.trim();
+
+    if (!text) {
+      setStatus('Please write your suggestion before submitting.', 'error');
+      textarea?.focus();
+      return;
+    }
+
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      setStatus('Suggestion box is not yet configured. Please check back soon!', 'error');
+      return;
+    }
+
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Submitting…';
+    clearStatus();
+
+    try {
+      // Send as text/plain to avoid CORS preflight.
+      // Google Apps Script parses JSON from e.postData.contents.
+      const resp = await fetch(APPS_SCRIPT_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body:    JSON.stringify({ suggestion: text }),
+      });
+
+      if (!resp.ok) throw new Error(`Server error (${resp.status})`);
+      const data = await resp.json();
+
+      if (data.status === 'success') {
+        setStatus('✓ Thank you! Your suggestion has been submitted anonymously.', 'success');
+        form.reset();
+        counter.textContent = `0 / ${MAX}`;
+        counter.className   = 'char-count';
+      } else {
+        throw new Error(data.message || 'Unexpected response from server.');
+      }
+    } catch (err) {
+      setStatus(`Submission failed: ${err.message}. Please try again.`, 'error');
+    } finally {
+      submitBtn.disabled    = false;
+      submitBtn.textContent = 'Submit Suggestion';
+    }
+  });
+
+  function setStatus(msg, type) {
+    if (!status) return;
+    status.textContent = msg;
+    status.className   = `status-msg ${type}`;
+  }
+
+  function clearStatus() {
+    if (!status) return;
+    status.textContent = '';
+    status.className   = 'status-msg';
+  }
+})();

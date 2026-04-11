@@ -301,7 +301,7 @@ body.modal-open { overflow: hidden; }
 }
 .data-table thead th {
   padding: 10px 14px;
-  text-align: left;
+  text-align: center;
   font-weight: 600;
   font-size: 0.73rem;
   letter-spacing: 0.09em;
@@ -910,9 +910,11 @@ body { overflow-x: hidden; }
   .data-table tbody td.amount-col,
   .data-table tfoot  td.amount-col { white-space: nowrap; }
 
-  /* Receipt button: "View Receipt" → "View" to fit narrow column */
-  .btn-receipt { font-size: 0; padding: 5px 8px; white-space: nowrap; }
+  /* Receipt button: "View Receipt" → "View" to fit narrow column, centered */
+  .btn-receipt { font-size: 0; padding: 5px 8px; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center; }
   .btn-receipt::after { content: 'View'; font-size: 0.60rem; font-weight: 600; font-family: var(--font-body); }
+  #credit-table .receipt-col,
+  #credit-table tbody td:nth-child(4) { text-align: center; }
 
   /* Allow table-wrapper to scroll if ever needed */
   .table-section   { overflow: visible; }

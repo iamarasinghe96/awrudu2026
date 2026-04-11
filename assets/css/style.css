@@ -868,13 +868,27 @@ body { overflow-x: hidden; }
   .card-amount     { font-size: 1.15rem; }
   .card-label      { font-size: 0.62rem; }
 
-  /* Tables – tighter */
-  .data-table      { font-size: 0.72rem; }
+  /* Tables – tighter + forced to fit viewport */
+  .data-table      { font-size: 0.72rem; table-layout: fixed; width: 100%; }
   .data-table thead th,
   .data-table tbody td,
-  .data-table tfoot td { padding: 7px 8px; }
-  .receipt-col     { width: 88px; }
-  .btn-receipt     { padding: 4px 9px; font-size: 0.67rem; }
+  .data-table tfoot td { padding: 7px 6px; white-space: normal; word-break: break-word; }
+  /* Date column: fixed narrow width */
+  .data-table thead th:first-child,
+  .data-table tbody td:first-child,
+  .data-table tfoot  td:first-child { width: 22%; }
+  /* Amount column: fixed width so it doesn't wrap oddly */
+  .data-table thead th:last-child,
+  .data-table tbody td:last-child,
+  .data-table tfoot  td:last-child   { width: 22%; }
+  /* Receipt button column */
+  .receipt-col     { width: 80px !important; }
+  .btn-receipt     { padding: 4px 7px; font-size: 0.65rem; white-space: nowrap; }
+  /* Amount value: allow it to shrink but keep number on one line */
+  .data-table tbody td.amount-col { white-space: nowrap; }
+  /* Override table-section clip so table-wrapper scroll works if needed */
+  .table-section   { overflow: visible; }
+  .table-wrapper   { overflow-x: auto; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 
   /* Hide "Notes" column label on smallest screens to save space */
   .data-table thead th:nth-child(3),

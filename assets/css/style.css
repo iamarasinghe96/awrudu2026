@@ -213,7 +213,7 @@ body.modal-open { overflow: hidden; }
 .expense-card .card-icon { background: rgba(183,28,28,0.20);  color: #E57373; }
 .surplus-card .card-icon { background: rgba(212,175,55,0.18); color: var(--clr-gold); }
 
-.card-body { display: flex; flex-direction: column; }
+.card-body { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .card-label {
   font-size: 0.68rem;
   text-transform: uppercase;
@@ -821,7 +821,7 @@ body { overflow-x: hidden; }
   /* Summary banner */
   .summary-banner  { flex-direction: column; gap: 0; padding: 0; }
   .summary-divider { width: 80%; height: 1px; margin: 0 auto; background: rgba(212,175,55,0.18); }
-  .summary-card    { padding: 14px 20px; min-width: unset; width: 100%; justify-content: flex-start; }
+  .summary-card    { padding: 14px 20px; min-width: unset; width: 100%; justify-content: center; }
   .card-amount     { font-size: 1.3rem; }
 
   /* Main container */

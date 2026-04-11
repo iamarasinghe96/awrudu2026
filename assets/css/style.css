@@ -878,31 +878,45 @@ body { overflow-x: hidden; }
   .card-label      { font-size: 0.62rem; }
 
   /* Tables – tighter + forced to fit viewport */
-  .data-table      { font-size: 0.72rem; table-layout: fixed; width: 100%; }
+  .data-table      { font-size: 0.70rem; table-layout: fixed; width: 100%; }
   .data-table thead th,
   .data-table tbody td,
-  .data-table tfoot td { padding: 7px 6px; white-space: normal; word-break: break-word; }
-  /* Date column: fixed narrow width */
-  .data-table thead th:first-child,
-  .data-table tbody td:first-child,
-  .data-table tfoot  td:first-child { width: 22%; }
-  /* Amount column: fixed width so it doesn't wrap oddly */
-  .data-table thead th:last-child,
-  .data-table tbody td:last-child,
-  .data-table tfoot  td:last-child   { width: 22%; }
-  /* Receipt button column */
-  .receipt-col     { width: 80px !important; }
-  .btn-receipt     { padding: 4px 7px; font-size: 0.65rem; white-space: nowrap; }
-  /* Amount value: allow it to shrink but keep number on one line */
-  .data-table tbody td.amount-col { white-space: nowrap; }
-  /* Override table-section clip so table-wrapper scroll works if needed */
+  .data-table tfoot td { padding: 7px 5px; white-space: normal; word-break: break-word; }
+
+  /* ---- Debit table: DATE(20%) | NAME(39%auto) | NOTES(22%) | AMOUNT(19%) ---- */
+  #debit-table thead th:nth-child(1),
+  #debit-table tbody td:nth-child(1),
+  #debit-table tfoot  td:nth-child(1) { width: 20%; }
+  #debit-table thead th:nth-child(3),
+  #debit-table tbody td:nth-child(3),
+  #debit-table tfoot  td:nth-child(3) { width: 22%; }
+  #debit-table thead th:nth-child(4),
+  #debit-table tbody td:nth-child(4),
+  #debit-table tfoot  td:nth-child(4) { width: 19%; }
+
+  /* ---- Credit table: DATE(20%) | DESC(36%auto) | AMOUNT(17%) | RECEIPT(27%) ---- */
+  #credit-table thead th:nth-child(1),
+  #credit-table tbody td:nth-child(1),
+  #credit-table tfoot  td:nth-child(1) { width: 20%; }
+  #credit-table thead th:nth-child(3),
+  #credit-table tbody td:nth-child(3),
+  #credit-table tfoot  td:nth-child(3) { width: 17%; }
+  #credit-table .receipt-col,
+  #credit-table thead th:nth-child(4),
+  #credit-table tbody td:nth-child(4),
+  #credit-table tfoot  td:nth-child(4) { width: 27% !important; }
+
+  /* Amount cells: keep dollar value on one line */
+  .data-table tbody td.amount-col,
+  .data-table tfoot  td.amount-col { white-space: nowrap; }
+
+  /* Receipt button: "View Receipt" → "View" to fit narrow column */
+  .btn-receipt { font-size: 0; padding: 5px 8px; white-space: nowrap; }
+  .btn-receipt::after { content: 'View'; font-size: 0.60rem; font-weight: 600; font-family: var(--font-body); }
+
+  /* Allow table-wrapper to scroll if ever needed */
   .table-section   { overflow: visible; }
   .table-wrapper   { overflow-x: auto; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-
-  /* Hide "Notes" column label on smallest screens to save space */
-  .data-table thead th:nth-child(3),
-  .data-table tbody td:nth-child(3),
-  .data-table tfoot  td:nth-child(3) { display: none; }
 
   /* Organizer cards */
   .organizers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }

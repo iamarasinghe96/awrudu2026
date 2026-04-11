@@ -21,6 +21,19 @@
     <div class="header-deco"></div>
     <div class="header-content">
 
+      <!--
+      ╔══════════════════════════════════════════════════════════╗
+      ║  EVENT LOGO PLACEHOLDER                                 ║
+      ║  To replace the lotus SVG with your own logo image:     ║
+      ║  1. Convert your image to Base64 (e.g. base64encode.io) ║
+      ║  2. Delete the <svg>…</svg> block inside this div       ║
+      ║  3. Paste this tag in its place (swap PASTE_BASE64):    ║
+      ║     <img src="data:image/png;base64,PASTE_BASE64"       ║
+      ║          alt="Awrudu 2026 Logo"                         ║
+      ║          style="width:100%;height:100%;                 ║
+      ║                 object-fit:contain;">                   ║
+      ╚══════════════════════════════════════════════════════════╝
+      -->
       <div class="event-logo" aria-hidden="true">
         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <g transform="rotate(0 60 60)">  <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.75"/></g>
@@ -111,6 +124,25 @@
             <option value="">— Loading transactions… —</option>
           </select>
           <p id="tx-hint" class="hint">Only expense (Credit) transactions are shown here.</p>
+        </div>
+
+        <!-- Receipt number (for multi-file transactions) -->
+        <div class="form-group">
+          <label for="receipt-number">Image Number</label>
+          <input
+            type="number"
+            id="receipt-number"
+            min="1"
+            max="10"
+            value="1"
+            style="width:80px;"
+            aria-describedby="receipt-number-hint"
+          />
+          <p id="receipt-number-hint" class="hint">
+            Use <strong>1</strong> for the first (or only) receipt, <strong>2</strong> for the second, and so on.
+            Files are saved as <code style="background:#F0E6D0;padding:1px 5px;border-radius:3px;">C004-1.jpg</code>,
+            <code style="background:#F0E6D0;padding:1px 5px;border-radius:3px;">C004-2.jpg</code>, etc.
+          </p>
         </div>
 
         <!-- File drop zone -->

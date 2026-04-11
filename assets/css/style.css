@@ -505,6 +505,40 @@ body.modal-open { overflow: hidden; }
   display: inline-block;
 }
 
+/* ---- Receipt gallery (multi-file modal) -------------------- */
+.receipt-gallery {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.gallery-counter {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  min-width: 48px;
+  text-align: center;
+}
+.btn-gallery-nav {
+  background: var(--clr-cream-dark);
+  border: 1px solid #D4C4A0;
+  border-radius: var(--radius-md);
+  padding: 4px 14px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1.6;
+  transition: background 0.15s;
+}
+.btn-gallery-nav:hover:not(:disabled) { background: #DDD0B8; }
+.btn-gallery-nav:disabled { opacity: 0.35; cursor: default; }
+.gallery-slot { width: 100%; }
+
 .loading-spinner {
   width: 44px;
   height: 44px;

@@ -94,18 +94,118 @@ function updateSummary(summary) {
 /* ---- Receipt resolution ------------------------------------ */
 
 /**
- * Try each supported extension via HEAD request and return
- * the first URL that resolves (200 OK).
+ * Resolve a single receipt variant (base or numbered).
+ * Tries each extension via HEAD and returns {url, ext} on first hit.
  */
-async function resolveReceiptUrl(receiptId) {
+async function resolveVariant(stem) {
   for (const ext of RECEIPT_EXTENSIONS) {
-    const url = `${RAW_BASE}${encodeURIComponent(receiptId)}.${ext}`;
+    const url = `${RAW_BASE}${encodeURIComponent(stem)}.${ext}`;
     try {
       const r = await fetch(url, { method: 'HEAD' });
       if (r.ok) return { url, ext };
     } catch (_) { /* network error – try next */ }
   }
   return null;
+}
+
+/**
+ * Collect all receipt files for a receiptId:
+ *   - base form:    C004.jpg  (legacy single-file uploads)
+ *   - numbered:     C004-1.jpg, C004-2.jpg … C004-10.jpg
+ * Returns an array of {url, ext, label} objects (may be empty).
+ */
+async function resolveAllReceiptUrls(receiptId) {
+  const found = [];
+
+  // 1. Base form (no suffix) — backwards-compatible with earlier uploads
+  const base = await resolveVariant(receiptId);
+  if (base) found.push({ ...base, label: null });
+
+  // 2. Numbered variants — stop after 2 consecutive misses
+  let misses = 0;
+  for (let n = 1; n <= 10 && misses < 2; n++) {
+    const hit = await resolveVariant(`${receiptId}-${n}`);
+    if (hit) {
+      found.push({ ...hit, label: n });
+      misses = 0;
+    } else {
+      misses++;
+    }
+  }
+
+  return found;
+}
+
+/* ---- Receipt rendering ------------------------------------- */
+
+function renderReceiptItem(body, result, description) {
+  if (result.ext === 'pdf') {
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const src = isMobile
+      ? `https://docs.google.com/viewer?url=${encodeURIComponent(result.url)}&embedded=true`
+      : result.url;
+    body.innerHTML = `<iframe
+      src="${escHtml(src)}"
+      class="receipt-frame"
+      title="Receipt for ${escHtml(description)}"
+      loading="lazy">
+    </iframe>`;
+  } else {
+    body.innerHTML = `<img
+      src="${escHtml(result.url)}"
+      alt="Receipt for ${escHtml(description)}"
+      class="receipt-image"
+      loading="lazy" />`;
+  }
+}
+
+function renderReceiptGallery(body, results, description, dlBtn) {
+  let current = 0;
+
+  function show(idx) {
+    current = idx;
+    const r = results[idx];
+    const counter = body.querySelector('.gallery-counter');
+    const prev    = body.querySelector('.gallery-prev');
+    const next    = body.querySelector('.gallery-next');
+    const slot    = body.querySelector('.gallery-slot');
+    if (counter) counter.textContent = `${idx + 1} / ${results.length}`;
+    if (prev)    prev.disabled  = idx === 0;
+    if (next)    next.disabled  = idx === results.length - 1;
+
+    // Update download button for current item
+    dlBtn.href = r.url;
+    const label = r.label != null ? `-${r.label}` : '';
+    dlBtn.setAttribute('download', `receipt-${escHtml(description)}${label}.${r.ext}`);
+    dlBtn.classList.remove('hidden');
+
+    if (r.ext === 'pdf') {
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+      const src = isMobile
+        ? `https://docs.google.com/viewer?url=${encodeURIComponent(r.url)}&embedded=true`
+        : r.url;
+      slot.innerHTML = `<iframe src="${escHtml(src)}" class="receipt-frame"
+        title="Receipt ${idx + 1} for ${escHtml(description)}" loading="lazy"></iframe>`;
+    } else {
+      slot.innerHTML = `<img src="${escHtml(r.url)}" alt="Receipt ${idx + 1} for ${escHtml(description)}"
+        class="receipt-image" loading="lazy" />`;
+    }
+  }
+
+  body.innerHTML = `
+    <div class="receipt-gallery">
+      <div class="gallery-nav">
+        <button class="gallery-prev btn-gallery-nav" aria-label="Previous receipt">&larr;</button>
+        <span class="gallery-counter">1 / ${results.length}</span>
+        <button class="gallery-next btn-gallery-nav" aria-label="Next receipt">&rarr;</button>
+      </div>
+      <div class="gallery-slot"></div>
+    </div>`;
+
+  body.querySelector('.gallery-prev').addEventListener('click', () => { if (current > 0) show(current - 1); });
+  body.querySelector('.gallery-next').addEventListener('click', () => { if (current < results.length - 1) show(current + 1); });
+
+  show(0);
 }
 
 /* ---- Receipt modal ----------------------------------------- */
@@ -124,9 +224,9 @@ async function openReceiptModal(receiptId, description) {
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
 
-  const result = await resolveReceiptUrl(receiptId);
+  const results = await resolveAllReceiptUrls(receiptId);
 
-  if (!result) {
+  if (results.length === 0) {
     body.innerHTML = `
       <div class="receipt-not-found">
         <p>Receipt has not been uploaded yet.</p>
@@ -135,28 +235,15 @@ async function openReceiptModal(receiptId, description) {
     return;
   }
 
-  dlBtn.href = result.url;
-  dlBtn.setAttribute('download', `receipt-${receiptId}.${result.ext}`);
-  dlBtn.classList.remove('hidden');
-
-  if (result.ext === 'pdf') {
-    // Use Google Docs viewer on mobile for better PDF support
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    const src = isMobile
-      ? `https://docs.google.com/viewer?url=${encodeURIComponent(result.url)}&embedded=true`
-      : result.url;
-    body.innerHTML = `<iframe
-      src="${escHtml(src)}"
-      class="receipt-frame"
-      title="Receipt for ${escHtml(description)}"
-      loading="lazy">
-    </iframe>`;
+  if (results.length === 1) {
+    // Single file — simple display
+    dlBtn.href = results[0].url;
+    dlBtn.setAttribute('download', `receipt-${receiptId}.${results[0].ext}`);
+    dlBtn.classList.remove('hidden');
+    renderReceiptItem(body, results[0], description);
   } else {
-    body.innerHTML = `<img
-      src="${escHtml(result.url)}"
-      alt="Receipt for ${escHtml(description)}"
-      class="receipt-image"
-      loading="lazy" />`;
+    // Multiple files — gallery
+    renderReceiptGallery(body, results, description, dlBtn);
   }
 }
 

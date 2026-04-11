@@ -148,6 +148,11 @@ async function loadTransactionDropdown() {
   }
 }
 
+function getReceiptFileStem(receiptId) {
+  const num = parseInt(document.getElementById('receipt-number')?.value, 10) || 1;
+  return `${receiptId}-${num}`;
+}
+
 function updateTargetFilename() {
   const select    = document.getElementById('transaction-select');
   const fileInput = document.getElementById('receipt-file');
@@ -156,7 +161,7 @@ function updateTargetFilename() {
   const receiptId = select?.value;
   const file      = fileInput?.files?.[0];
   const ext       = file ? getExtension(file) : '<ext>';
-  display.textContent = receiptId ? `receipts/${receiptId}.${ext}` : '—';
+  display.textContent = receiptId ? `receipts/${getReceiptFileStem(receiptId)}.${ext}` : '—';
 }
 
 function checkUploadReady() {
@@ -276,8 +281,9 @@ async function handleUpload() {
   }
 
   const ext  = getExtension(file);
-  const path = `receipts/${receiptId}.${ext}`;
-  const msg  = `Add receipt ${receiptId}.${ext} via admin panel`;
+  const stem = getReceiptFileStem(receiptId);
+  const path = `receipts/${stem}.${ext}`;
+  const msg  = `Add receipt ${stem}.${ext} via admin panel`;
 
   btn.disabled    = true;
   btn.textContent = 'Uploading…';
@@ -323,6 +329,9 @@ function init() {
     updateTargetFilename();
     checkUploadReady();
   });
+
+  // Receipt number
+  document.getElementById('receipt-number')?.addEventListener('input', updateTargetFilename);
 
   // File input
   document.getElementById('receipt-file')?.addEventListener('change', e => {

@@ -117,10 +117,19 @@ body.modal-open { overflow: hidden; }
 }
 
 .event-logo {
-  width: 110px;
-  height: 110px;
+  width: 160px;
+  height: 160px;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 16px rgba(212,175,55,0.55));
+  filter: drop-shadow(0 0 20px rgba(212,175,55,0.45));
+}
+/* Mask out the white PNG background with a radial fade */
+.event-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  -webkit-mask-image: radial-gradient(circle at center, black 52%, rgba(0,0,0,0.6) 65%, transparent 78%);
+  mask-image:         radial-gradient(circle at center, black 52%, rgba(0,0,0,0.6) 65%, transparent 78%);
 }
 .event-logo svg { width: 100%; height: 100%; }
 
@@ -799,7 +808,7 @@ body.modal-open { overflow: hidden; }
 .back-link:hover { color: var(--clr-gold-light); }
 
 .site-header.compact { padding: 16px 20px 0; }
-.site-header.compact .event-logo { width: 64px; height: 64px; }
+.site-header.compact .event-logo { width: 90px; height: 90px; }
 .site-header.compact .event-title { font-size: clamp(0.95rem, 2.5vw, 1.3rem); }
 .site-header.compact .event-year  { font-size: clamp(1.2rem, 3vw, 1.7rem); }
 
@@ -814,7 +823,7 @@ body { overflow-x: hidden; }
   .site-header       { padding: 20px 16px 0; }
   .header-content    { flex-direction: column; gap: 12px; padding: 16px 0 0; }
   .header-text       { text-align: center; }
-  .event-logo        { width: 80px; height: 80px; }
+  .event-logo        { width: 130px; height: 130px; }
   .event-location    { font-size: 0.72rem; }
   .header-deco.bottom { margin-top: 20px; }
 
@@ -859,7 +868,7 @@ body { overflow-x: hidden; }
 /* ---- Mobile (≤ 480px) ---- */
 @media (max-width: 480px) {
   /* Header text scaling */
-  .event-logo      { width: 64px; height: 64px; }
+  .event-logo      { width: 110px; height: 110px; }
   .event-year      { font-size: 2rem; }
 
   /* Summary cards: icon + text in a compact row */

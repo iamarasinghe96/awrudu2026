@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', init);
    ============================================================= */
 
 // ⚠️  Replace this with your Google Apps Script deployment URL
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVJM9Vy-FS8cx33fEQZoay0LaV1uA9j0bcX9jM9FbAsGkHBXwW27XL3TT9SvBNBQ1D/exec';
 
 (function initSuggestionForm() {
   const form    = document.getElementById('suggestion-form');

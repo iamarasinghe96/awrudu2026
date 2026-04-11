@@ -916,9 +916,12 @@ body { overflow-x: hidden; }
   #credit-table .receipt-col,
   #credit-table tbody td:nth-child(4) { text-align: center; }
 
-  /* Allow table-wrapper to scroll if ever needed */
+  /* Debit table: no horizontal scroll (table fits viewport) */
   .table-section   { overflow: visible; }
-  .table-wrapper   { overflow-x: auto; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+  #debit-section  .table-wrapper { overflow-x: hidden; }
+  /* Credit table: allow scroll if needed */
+  #credit-section .table-wrapper { overflow-x: auto; }
+  .table-wrapper   { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 
   /* Organizer cards */
   .organizers-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }

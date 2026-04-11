@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albury Wodonga Awrudu 2026 – Budget Statement</title>
+  <meta name="description" content="Financial statement for the Albury Wodonga Sinhala & Tamil New Year Festival 2026">
+
+  <!-- Google Fonts: Sinhala + Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="header-deco"></div>
+    <div class="header-content">
+
+      <!-- Lotus / Kolam SVG logo -->
+      <div class="event-logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer petals (8-fold) -->
+          <g transform="rotate(0 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.75"/>
+          </g>
+          <g transform="rotate(45 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/>
+          </g>
+          <g transform="rotate(90 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/>
+          </g>
+          <g transform="rotate(135 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/>
+          </g>
+          <g transform="rotate(180 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/>
+          </g>
+          <g transform="rotate(225 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/>
+          </g>
+          <g transform="rotate(270 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/>
+          </g>
+          <g transform="rotate(315 60 60)">
+            <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/>
+          </g>
+          <!-- Inner petals -->
+          <g transform="rotate(22.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/>
+          </g>
+          <g transform="rotate(67.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/>
+          </g>
+          <g transform="rotate(112.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/>
+          </g>
+          <g transform="rotate(157.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/>
+          </g>
+          <g transform="rotate(202.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/>
+          </g>
+          <g transform="rotate(247.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/>
+          </g>
+          <g transform="rotate(292.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/>
+          </g>
+          <g transform="rotate(337.5 60 60)">
+            <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/>
+          </g>
+          <!-- Centre circles -->
+          <circle cx="60" cy="60" r="18" fill="#D4AF37" opacity="0.90"/>
+          <circle cx="60" cy="60" r="12" fill="#FF6B35" opacity="0.95"/>
+          <circle cx="60" cy="60" r="6"  fill="#FDF8F0"/>
+        </svg>
+      </div>
+
+      <div class="header-text">
+        <p class="event-location">Albury Wodonga</p>
+        <h1 class="event-title">
+          <span class="sinhala">අලුත් අවුරුදු උත්සවය</span>
+          <span class="english">Sinhala &amp; Tamil New Year Festival</span>
+        </h1>
+        <p class="event-year">2026</p>
+        <p class="event-subtitle">Financial Statement</p>
+      </div>
+
+    </div>
+    <div class="header-deco bottom"></div>
+  </header>
+
+  <!-- =================== SUMMARY BANNER =================== -->
+  <section class="summary-banner" aria-label="Financial summary">
+    <div class="summary-card income-card">
+      <div class="card-icon" aria-hidden="true">↑</div>
+      <div class="card-body">
+        <span class="card-label">Total Income</span>
+        <span class="card-amount" id="totalDebit">$3,977.00</span>
+      </div>
+    </div>
+    <div class="summary-divider" role="separator"></div>
+    <div class="summary-card expense-card">
+      <div class="card-icon" aria-hidden="true">↓</div>
+      <div class="card-body">
+        <span class="card-label">Total Expenses</span>
+        <span class="card-amount" id="totalCredit">$3,806.09</span>
+      </div>
+    </div>
+    <div class="summary-divider" role="separator"></div>
+    <div class="summary-card surplus-card">
+      <div class="card-icon" aria-hidden="true">$</div>
+      <div class="card-body">
+        <span class="card-label">Surplus</span>
+        <span class="card-amount surplus-amount" id="surplus">$170.91</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== MAIN ========================= -->
+  <main class="container">
+
+    <!-- DEBIT / INCOME SECTION -->
+    <section class="table-section" id="debit-section" aria-labelledby="debit-heading">
+      <div class="section-header">
+        <span class="section-badge debit-badge" aria-label="Debit">DEBIT</span>
+        <h2 id="debit-heading">Income &amp; Payments Received</h2>
+      </div>
+      <div class="table-wrapper" role="region" aria-label="Income transactions" tabindex="0">
+        <table class="data-table" id="debit-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Name</th>
+              <th scope="col">Notes</th>
+              <th scope="col" class="amount-col">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="debit-tbody">
+            <tr><td colspan="4" class="loading-cell">Loading…</td></tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3"><strong>Total</strong></td>
+              <td class="amount-col"><strong id="debit-total">$3,977.00</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- CREDIT / EXPENSES SECTION -->
+    <section class="table-section" id="credit-section" aria-labelledby="credit-heading">
+      <div class="section-header">
+        <span class="section-badge credit-badge" aria-label="Credit">CREDIT</span>
+        <h2 id="credit-heading">Expenses &amp; Payments Made</h2>
+      </div>
+      <div class="table-wrapper" role="region" aria-label="Expense transactions" tabindex="0">
+        <table class="data-table" id="credit-table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Transaction Details</th>
+              <th scope="col" class="amount-col">Amount</th>
+              <th scope="col" class="receipt-col">Receipt</th>
+            </tr>
+          </thead>
+          <tbody id="credit-tbody">
+            <tr><td colspan="4" class="loading-cell">Loading…</td></tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="2"><strong>Total</strong></td>
+              <td class="amount-col"><strong id="credit-total">$3,806.09</strong></td>
+              <td></td>
+            </tr>
+            <tr class="surplus-row">
+              <td colspan="2"><strong>Deficit / Surplus</strong></td>
+              <td class="amount-col surplus-amount"><strong id="surplus-row">$170.91</strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== RECEIPT MODAL ==================== -->
+  <div
+    id="receipt-modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-hidden="true"
+  >
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3 id="modal-title">Receipt</h3>
+        <button class="modal-close" id="modal-close" aria-label="Close receipt viewer">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modal-body">
+        <!-- Populated by app.js: iframe (PDF) or img (image) -->
+      </div>
+
+      <div class="modal-footer">
+        <a id="modal-download" href="#" class="btn btn-download hidden" download>
+          &#11015; Download Receipt
+        </a>
+        <button class="btn btn-close-modal" id="modal-close-btn">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====================== FOOTER ======================== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-org">Albury Wodonga Sinhala &amp; Tamil Association</p>
+      <p class="footer-copy">&copy; 2026 &nbsp;|&nbsp; Awrudu Festival &nbsp;|&nbsp; Financial Statement</p>
+      <a href="admin.html" class="admin-link">Admin Panel</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

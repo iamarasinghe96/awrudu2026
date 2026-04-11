@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel – Awrudu 2026 Budget</title>
+  <meta name="description" content="Admin panel for uploading receipts to the Awrudu 2026 budget statement">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER (compact) ==================== -->
+  <header class="site-header compact">
+    <div class="header-deco"></div>
+    <div class="header-content">
+
+      <div class="event-logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(0 60 60)">  <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.75"/></g>
+          <g transform="rotate(45 60 60)"> <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/></g>
+          <g transform="rotate(90 60 60)"> <ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/></g>
+          <g transform="rotate(135 60 60)"><ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.65"/></g>
+          <g transform="rotate(180 60 60)"><ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/></g>
+          <g transform="rotate(225 60 60)"><ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/></g>
+          <g transform="rotate(270 60 60)"><ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/></g>
+          <g transform="rotate(315 60 60)"><ellipse cx="60" cy="34" rx="7" ry="26" fill="#D4AF37" opacity="0.60"/></g>
+          <g transform="rotate(22.5 60 60)"> <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/></g>
+          <g transform="rotate(67.5 60 60)"> <ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/></g>
+          <g transform="rotate(112.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.55"/></g>
+          <g transform="rotate(157.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/></g>
+          <g transform="rotate(202.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/></g>
+          <g transform="rotate(247.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/></g>
+          <g transform="rotate(292.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/></g>
+          <g transform="rotate(337.5 60 60)"><ellipse cx="60" cy="40" rx="5" ry="20" fill="#FF6B35" opacity="0.50"/></g>
+          <circle cx="60" cy="60" r="18" fill="#D4AF37" opacity="0.90"/>
+          <circle cx="60" cy="60" r="12" fill="#FF6B35" opacity="0.95"/>
+          <circle cx="60" cy="60" r="6"  fill="#FDF8F0"/>
+        </svg>
+      </div>
+
+      <div class="header-text">
+        <a href="index.html" class="back-link">&#8592; Back to Budget Statement</a>
+        <h1 class="event-title">
+          <span class="sinhala">පරිපාලන මැදිරිය</span>
+          <span class="english">Admin Panel – Receipt Management</span>
+        </h1>
+        <p class="event-year">2026</p>
+      </div>
+
+    </div>
+    <div class="header-deco bottom"></div>
+  </header>
+
+  <!-- ==================== MAIN ====================  -->
+  <main class="admin-container">
+    <div class="admin-card">
+      <h2>Receipt Upload</h2>
+
+      <!-- ---- AUTH SECTION ---- -->
+      <section class="auth-section" id="auth-section" aria-labelledby="auth-heading">
+        <h3 id="auth-heading">GitHub Authentication</h3>
+        <p class="hint" style="margin-bottom:16px;line-height:1.5;">
+          Enter a GitHub Personal Access Token (PAT) with
+          <strong>Contents: read &amp; write</strong> permission for the
+          <code style="background:#F0E6D0;padding:2px 6px;border-radius:4px;font-size:0.82rem;">iamarasinghe96/awrudu2026</code>
+          repository.
+          <br>
+          The token is stored in <strong>sessionStorage only</strong> and is
+          automatically cleared when you close this tab.
+        </p>
+
+        <div class="form-group">
+          <label for="pat-input">Personal Access Token</label>
+          <input
+            type="password"
+            id="pat-input"
+            placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            autocomplete="off"
+            spellcheck="false"
+            aria-describedby="pat-hint"
+          />
+          <p id="pat-hint" class="hint">
+            Create a PAT at GitHub &rsaquo; Settings &rsaquo; Developer settings &rsaquo; Personal access tokens
+          </p>
+        </div>
+
+        <button id="auth-btn" class="btn-primary" type="button">Authenticate</button>
+        <div id="auth-status" class="status-msg" role="status" aria-live="polite"></div>
+      </section>
+
+      <!-- ---- UPLOAD SECTION (shown after auth) ---- -->
+      <section class="upload-section hidden" id="upload-section" aria-labelledby="upload-heading">
+        <h3 id="upload-heading">Upload a Receipt</h3>
+        <p class="hint" style="margin-bottom:16px;">
+          Select the transaction, then choose or drag the receipt file.
+          The file is saved to the <code style="background:#F0E6D0;padding:1px 5px;border-radius:3px;">receipts/</code>
+          folder in the repository.
+        </p>
+
+        <!-- Transaction picker -->
+        <div class="form-group">
+          <label for="transaction-select">Transaction</label>
+          <select id="transaction-select" aria-describedby="tx-hint">
+            <option value="">— Loading transactions… —</option>
+          </select>
+          <p id="tx-hint" class="hint">Only expense (Credit) transactions are shown here.</p>
+        </div>
+
+        <!-- File drop zone -->
+        <div class="form-group">
+          <label for="receipt-file">Receipt File</label>
+          <div class="file-drop-zone" id="file-drop-zone" role="button" aria-label="File upload area – click or drag file here">
+            <input
+              type="file"
+              id="receipt-file"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              aria-label="Choose receipt file"
+            />
+            <p><strong>Click to browse</strong> or drag &amp; drop a file here</p>
+            <p class="hint">Accepted: PDF, JPG, PNG, WebP &nbsp;&bull;&nbsp; Max size: 25 MB</p>
+          </div>
+          <div id="file-preview" class="file-preview hidden" aria-live="polite"></div>
+        </div>
+
+        <!-- Target path display -->
+        <div class="form-group">
+          <label>File will be saved as</label>
+          <code id="target-filename" class="filename-display" aria-live="polite">—</code>
+        </div>
+
+        <button id="upload-btn" class="btn-primary" type="button" disabled>Upload Receipt</button>
+        <div id="upload-status" class="status-msg" role="status" aria-live="polite"></div>
+
+        <hr class="admin-divider">
+
+        <!-- Existing receipts list -->
+        <h3>Uploaded Receipts</h3>
+        <div id="existing-receipts-list" aria-live="polite">
+          <p class="hint">No receipts loaded yet.</p>
+        </div>
+
+        <hr class="admin-divider">
+        <button id="signout-btn" class="btn-secondary" type="button">Sign Out</button>
+      </section>
+
+    </div><!-- /.admin-card -->
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-org">Albury Wodonga Sinhala &amp; Tamil Association</p>
+      <p class="footer-copy">&copy; 2026 &nbsp;|&nbsp; Admin Panel</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

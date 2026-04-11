@@ -848,7 +848,7 @@ body.modal-open { overflow: hidden; }
 /* Badge variants */
 .about-badge      { background: rgba(139,26,26,0.10); color: var(--clr-maroon);  border: 1px solid rgba(139,26,26,0.20); }
 .donation-badge   { background: rgba(180,0,70,0.08);  color: #B00050;            border: 1px solid rgba(180,0,70,0.20); }
-.suggestion-badge { background: rgba(21,101,192,0.09); color: var(--clr-surplus); border: 1px solid rgba(21,101,192,0.22); }
+.suggestion-badge { background: rgba(139,26,26,0.09); color: var(--clr-maroon); border: 1px solid rgba(139,26,26,0.22); }
 
 /* ---- Organizers grid ---- */
 .organizers-grid {
@@ -1074,7 +1074,7 @@ body.modal-open { overflow: hidden; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--clr-surplus), #1976D2, var(--clr-surplus));
+  background: linear-gradient(90deg, var(--clr-maroon), var(--clr-gold), var(--clr-saffron), var(--clr-gold), var(--clr-maroon));
 }
 
 .suggestion-field {
@@ -1106,8 +1106,8 @@ body.modal-open { overflow: hidden; }
 }
 
 #suggestion-text:focus {
-  border-color: #1565C0;
-  box-shadow: 0 0 0 3px rgba(21,101,192,0.12);
+  border-color: var(--clr-gold-muted);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
   background: var(--clr-white);
 }
 
@@ -1120,12 +1120,12 @@ body.modal-open { overflow: hidden; }
   margin-top: 4px;
   font-variant-numeric: tabular-nums;
 }
-.char-count.near-limit { color: #E65100; }
+.char-count.near-limit { color: var(--clr-gold-muted); }
 .char-count.at-limit   { color: var(--clr-expense); font-weight: 600; }
 
 .btn-suggestion {
-  background: linear-gradient(135deg, #1565C0, #1976D2);
-  color: #fff;
+  background: linear-gradient(135deg, var(--clr-maroon-dark), var(--clr-maroon));
+  color: var(--clr-gold-light);
   border: none;
   border-radius: var(--radius-md);
   padding: 11px 32px;
@@ -1137,9 +1137,9 @@ body.modal-open { overflow: hidden; }
   letter-spacing: 0.02em;
 }
 .btn-suggestion:hover:not(:disabled) {
-  background: linear-gradient(135deg, #0D47A1, #1565C0);
+  background: linear-gradient(135deg, var(--clr-maroon), #A52020);
   transform: translateY(-2px);
-  box-shadow: 0 5px 14px rgba(21,101,192,0.30);
+  box-shadow: 0 5px 14px rgba(139,26,26,0.30);
 }
 .btn-suggestion:disabled { opacity: 0.50; cursor: not-allowed; }
 
